@@ -13,6 +13,7 @@ pipeline{
         }
         stage("Build"){
             steps{
+                //mvn package
                 sh 'mvn package'
                 echo "Build"
             }
@@ -20,27 +21,29 @@ pipeline{
         stage("Deploy on Test"){
             steps{
                 //deploy on container -> plugin
-                deploy adapters: [tomcat9(credentialsId: 'tomcatserverdetails1', path: '', url: 'http://13.232.102.98:8080/')], contextPath: '/app', war: '**/*.war'
-                echo "Deploy on test"
+                deploy adapters: [tomcat9(credentialsId: 'newID2', path: '', url: 'http://65.1.91.110:8080')], contextPath: '/myApp', war: '**/*.war'
+                echo "Deploy test"
             }
         }
         stage("Deploy on Prod"){
             steps{
                 //deploy on container -> plugin
+                deploy adapters: [tomcat9(credentialsId: 'newID2', path: '', url: 'http://13.233.142.124:8080')], contextPath: '/myApp', war: '**/*.war'
+                echo "Deploy Prod"
                 
-                echo "Deploy on prod"
             }
         }
     }
     post{
         always{
             echo "Always"
+
         }
         success{
-            echo "success"
+                echo "Success"
         }
         failure{
-            echo "Failure"   
+                echo "Failure"
         }
     }
 }
