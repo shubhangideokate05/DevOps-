@@ -31,8 +31,9 @@ pipeline{
                 message "Should we continue?"
                 ok "Yes we should"
             }
-            echo "Deploying on Production Server......."
+            
             steps{
+                echo "Deploying on Production Server......."
                 //deploy on container -> plugin
                 deploy adapters: [tomcat9(credentialsId: 'newID2', path: '', url: 'http://13.233.142.124:8080')], contextPath: '/myApp', war: '**/*.war'
             
