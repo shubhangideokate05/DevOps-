@@ -7,43 +7,49 @@ pipeline{
         stage("Test"){
             steps{
                 //mvn test
+                echo "Testing......."
                 sh 'mvn test'
-                echo "Test"
             }
         }
         stage("Build"){
             steps{
                 //mvn package
+                echo "Building....."
                 sh 'mvn package'
-                echo "Build"
             }
         }
-        stage("Deploy on Test"){
+        stage("Deploy on Mock Server"){
             steps{
                 //deploy on container -> plugin
+                echo "Deploying on mock server........"
                 deploy adapters: [tomcat9(credentialsId: 'newID2', path: '', url: 'http://65.1.91.110:8080')], contextPath: '/myApp', war: '**/*.war'
-                echo "Deploy test"
+                
             }
         }
-        stage("Deploy on Prod"){
+        stage("Deploy on Production Server"){ 
+            input{
+                message "Should we continue?"
+                ok "Yes we should"
+            }
+            echo "Deploying on Production Server......."
             steps{
                 //deploy on container -> plugin
                 deploy adapters: [tomcat9(credentialsId: 'newID2', path: '', url: 'http://13.233.142.124:8080')], contextPath: '/myApp', war: '**/*.war'
-                echo "Deploy Prod"
+            
                 
             }
         }
     }
     post{
         always{
-            echo "Always"
+            echo "_______________Always_______________"
 
         }
         success{
-                echo "Success"
+                echo "________________Success___________________"
         }
         failure{
-                echo "Failure"
+                echo "______________Failure________________"
         }
     }
 }
