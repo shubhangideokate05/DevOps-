@@ -22,7 +22,7 @@ pipeline{
             steps{
                 //deploy on container -> plugin
                 echo "Deploying on mock server........"
-                deploy adapters: [tomcat9(credentialsId: 'Snehal', path: '', url: 'http://52.66.158.7:8080')], contextPath: '/myDeclarativePipeline', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'Snehal', path: '', url: 'http://13.126.144.165:8080')], contextPath: '/myDeclarativePipeline', war: '**/*.war'
                 
             }
         }
@@ -35,7 +35,7 @@ pipeline{
             steps{
                 echo "Deploying on Production Server......."
                 //deploy on container -> plugin
-                deploy adapters: [tomcat9(credentialsId: 'Snehal', path: '', url: 'http://13.200.250.19:8080')], contextPath: '/myDeclarativePipeline', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'Snehal', path: '', url: 'http://65.0.98.14:8080')], contextPath: '/myDeclarativePipeline', war: '**/*.war'
             
                 
             }
