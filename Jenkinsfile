@@ -8,7 +8,7 @@ pipeline{
             steps{
                 //mvn test
                 echo "Testing......."
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage("Build"){
